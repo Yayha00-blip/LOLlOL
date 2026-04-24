@@ -18,6 +18,47 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
+## Ajouter des images en local (VS Code)
+
+Si tu ne vois pas les images sur `localhost`, suis ces étapes dans ton projet local :
+
+1. **Place tes fichiers image dans `public/images/`**
+   - Exemple : `public/images/1.jpg`
+   - Le dossier `public` est servi à la racine (`/`).
+
+2. **Utilise un chemin qui commence par `/images/...`**
+   - ✅ Correct : `"/images/1.jpg"`
+   - ❌ Incorrect : `"public/images/1.jpg"`
+
+3. **Affiche les images avec `next/image`**
+
+```tsx
+import Image from 'next/image'
+
+export default function Example() {
+  return (
+    <div style={{ position: 'relative', width: 300, height: 400 }}>
+      <Image
+        src="/images/1.jpg"
+        alt="Chemise"
+        fill
+        style={{ objectFit: 'cover' }}
+      />
+    </div>
+  )
+}
+```
+
+4. **Redémarre le serveur après ajout de nouvelles images**
+
+```bash
+npm run dev
+```
+
+5. **Vérifie l'URL de l'image dans le navigateur**
+   - Ouvre directement : `http://localhost:3000/images/1.jpg`
+   - Si ça répond `404`, le fichier n'est pas au bon emplacement ou le nom ne correspond pas (majuscules/minuscules).
+
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
 ## Learn More

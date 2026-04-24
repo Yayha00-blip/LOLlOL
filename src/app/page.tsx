@@ -1,4 +1,6 @@
 import Hero from '../components/Hero'
+import Bestsellers from '../components/Bestsellers'
+import Collections from '../components/Collections'
 
 // Tu peux importer d'autres sections ici au fur et à mesure
 // import ProductGrid from '../components/ProductGrid'
@@ -33,10 +35,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 3. Espace pour tes futures collections */}
-      <section style={{ paddingBottom: '100px' }}>
-        {/* <ProductGrid /> */}
-      </section>
+      <Bestsellers />
+      <Collections />
     </>
   )
 }

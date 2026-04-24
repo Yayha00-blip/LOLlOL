@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { ArrowRight } from 'lucide-react'
 
 const collections = [
@@ -10,6 +11,7 @@ const collections = [
     bg: 'var(--espresso)',
     textColor: 'var(--cream)',
     subColor: 'var(--tan)',
+    image: '/images/4.jpg',
   },
   {
     name: 'Lin & Été',
@@ -19,6 +21,7 @@ const collections = [
     bg: 'var(--cream-dark)',
     textColor: 'var(--ink)',
     subColor: 'var(--brown)',
+    image: '/images/8.jpg',
   },
   {
     name: 'Cérémonie',
@@ -28,6 +31,7 @@ const collections = [
     bg: 'var(--tan)',
     textColor: 'var(--espresso)',
     subColor: 'var(--brown)',
+    image: '/images/12.jpg',
   },
   {
     name: 'Casual',
@@ -37,6 +41,7 @@ const collections = [
     bg: 'var(--cream-mid)',
     textColor: 'var(--espresso)',
     subColor: 'var(--brown)',
+    image: '/images/15.jpg',
   },
 ]
 
@@ -115,26 +120,13 @@ export default function Collections() {
             }}
             className="animate-fade-up collection-card"
           >
-            {/* Image placeholder — replace with <Image /> */}
-            <div
-              style={{
-                position: 'absolute',
-                inset: 0,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                opacity: 0.15,
-              }}
-            >
-              <div
-                style={{
-                  width: '40%',
-                  aspectRatio: '2/3',
-                  background: 'currentColor',
-                  borderRadius: '2px',
-                }}
-              />
-            </div>
+            <Image
+              src={col.image}
+              alt={col.name}
+              fill
+              sizes="(max-width: 768px) 100vw, 25vw"
+              style={{ objectFit: 'cover' }}
+            />
 
             {/* Content */}
             <div

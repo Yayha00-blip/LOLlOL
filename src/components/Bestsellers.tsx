@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { Heart, ArrowRight } from 'lucide-react'
 
 const products = [
@@ -14,6 +15,7 @@ const products = [
     badge: 'Bestseller',
     badgeStyle: { background: 'var(--gold)', color: 'var(--ink)' },
     bg: 'var(--cream-dark)',
+    image: '/images/2.jpg',
     colors: ['#2C2416', '#C8BDA8', '#F5F0E8'],
   },
   {
@@ -24,6 +26,7 @@ const products = [
     slug: 'chemise-lin-blanc',
     badge: null,
     bg: '#D8CEBC',
+    image: '/images/8.jpg',
     colors: ['#F5F0E8', '#D8CEBC', '#2C2416'],
   },
   {
@@ -35,6 +38,7 @@ const products = [
     badge: 'Nouveau',
     badgeStyle: { background: 'var(--espresso)', color: 'var(--gold)' },
     bg: '#B8C4D4',
+    image: '/images/4.jpg',
     colors: ['#2C3E5C', '#F5F0E8'],
   },
   {
@@ -46,6 +50,7 @@ const products = [
     badge: 'Exclusif',
     badgeStyle: { background: 'var(--gold)', color: 'var(--ink)' },
     bg: 'var(--espresso)',
+    image: '/images/11.jpg',
     colors: ['#1a1611', '#D4A853'],
   },
   {
@@ -56,6 +61,7 @@ const products = [
     slug: 'popeline-blanche',
     badge: null,
     bg: '#EDE7DC',
+    image: '/images/3.jpg',
     colors: ['#F5F0E8', '#2C2416', '#C8BDA8'],
   },
   {
@@ -67,6 +73,7 @@ const products = [
     badge: 'Nouveau',
     badgeStyle: { background: 'var(--espresso)', color: 'var(--gold)' },
     bg: '#D4906A',
+    image: '/images/15.jpg',
     colors: ['#D4906A', '#F5F0E8', '#2C2416'],
   },
   {
@@ -77,6 +84,7 @@ const products = [
     slug: 'lin-sable',
     badge: null,
     bg: '#C8B898',
+    image: '/images/9.jpg',
     colors: ['#C8B898', '#F5F0E8'],
   },
   {
@@ -87,6 +95,7 @@ const products = [
     slug: 'flanelle-bleu-nuit',
     badge: null,
     bg: '#3A4A5C',
+    image: '/images/14.jpg',
     colors: ['#3A4A5C', '#F5F0E8', '#D4A853'],
   },
 ]
@@ -116,18 +125,12 @@ function ProductCard({ product }: ProductCardProps) {
             marginBottom: '12px',
           }}
         >
-          {/* Shirt silhouette placeholder — replace with <Image /> */}
-          <div
-            style={{
-              position: 'absolute',
-              top: '50%',
-              left: '50%',
-              transform: 'translate(-50%, -55%)',
-              width: '45%',
-              aspectRatio: '1/1.4',
-              background: 'rgba(255,255,255,0.12)',
-              borderRadius: '1px',
-            }}
+          <Image
+            src={product.image}
+            alt={product.name}
+            fill
+            sizes="(max-width: 768px) 100vw, 33vw"
+            style={{ objectFit: 'cover' }}
           />
 
           {/* Badge */}

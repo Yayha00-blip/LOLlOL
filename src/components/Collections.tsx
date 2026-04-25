@@ -1,42 +1,33 @@
 import Link from 'next/link'
-import { ArrowRight } from 'lucide-react'
 
 const collections = [
   {
     name: 'Classique',
     description: 'Intemporel & soigné',
-    count: 18,
+    count: 6,
     slug: 'classique',
-    bg: 'var(--espresso)',
-    textColor: 'var(--cream)',
-    subColor: 'var(--tan)',
+    image: '/images/1.jpg',
   },
   {
     name: 'Lin & Été',
     description: 'Légèreté & fraîcheur',
-    count: 12,
+    count: 4,
     slug: 'lin-ete',
-    bg: 'var(--cream-dark)',
-    textColor: 'var(--ink)',
-    subColor: 'var(--brown)',
+    image: '/images/7.jpg',
   },
   {
     name: 'Cérémonie',
     description: 'Élégance & prestige',
-    count: 9,
+    count: 3,
     slug: 'ceremonie',
-    bg: 'var(--tan)',
-    textColor: 'var(--espresso)',
-    subColor: 'var(--brown)',
+    image: '/images/11.jpg',
   },
   {
     name: 'Casual',
     description: 'Décontracté & moderne',
-    count: 15,
+    count: 3,
     slug: 'casual',
-    bg: 'var(--cream-mid)',
-    textColor: 'var(--espresso)',
-    subColor: 'var(--brown)',
+    image: '/images/14.jpg',
   },
 ]
 
@@ -44,39 +35,49 @@ export default function Collections() {
   return (
     <section
       id="collections"
-      style={{ padding: 'clamp(48px, 6vw, 80px) clamp(24px, 5vw, 64px)' }}
+      style={{ padding: 'clamp(48px,6vw,80px) clamp(24px,5vw,64px)' }}
     >
-      {/* Header */}
       <div
         style={{
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'baseline',
+          gap: '16px',
           marginBottom: '40px',
+          flexWrap: 'wrap',
         }}
       >
         <div>
-          <p className="eyebrow" style={{ marginBottom: '10px' }}>
+          <p
+            style={{
+              fontFamily: 'var(--font-sans)',
+              fontSize: '10px',
+              fontWeight: 500,
+              letterSpacing: '0.22em',
+              textTransform: 'uppercase',
+              color: 'var(--brown-light)',
+              marginBottom: '10px',
+            }}
+          >
             Nos Collections
           </p>
+
           <h2
             style={{
               fontFamily: 'var(--font-serif)',
-              fontSize: 'clamp(28px, 3vw, 40px)',
+              fontSize: 'clamp(28px,3vw,40px)',
               fontWeight: 400,
               lineHeight: 1.2,
+              color: 'var(--espresso)',
             }}
           >
-            Chaque style,{' '}
-            <em style={{ fontStyle: 'italic' }}>une histoire</em>
+            Chaque style, <em style={{ fontStyle: 'italic' }}>une histoire</em>
           </h2>
         </div>
+
         <Link
           href="/collections"
           style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '6px',
             fontSize: '10px',
             fontWeight: 500,
             letterSpacing: '0.15em',
@@ -84,15 +85,13 @@ export default function Collections() {
             color: 'var(--brown)',
             borderBottom: '0.5px solid var(--brown)',
             paddingBottom: '2px',
-            transition: 'color 0.2s',
+            textDecoration: 'none',
           }}
         >
-          Tout voir
-          <ArrowRight size={12} strokeWidth={1.5} />
+          Tout voir →
         </Link>
       </div>
 
-      {/* Grid */}
       <div
         style={{
           display: 'grid',
@@ -100,131 +99,101 @@ export default function Collections() {
           gap: '16px',
         }}
       >
-        {collections.map((col, i) => (
+        {collections.map((col) => (
           <Link
             key={col.slug}
             href={`/collections/${col.slug}`}
             style={{
               display: 'block',
-              background: col.bg,
-              aspectRatio: '3/4',
+              textDecoration: 'none',
               position: 'relative',
               overflow: 'hidden',
-              textDecoration: 'none',
-              animationDelay: `${i * 0.1}s`,
+              borderRadius: '18px',
             }}
-            className="animate-fade-up collection-card"
           >
-            {/* Image placeholder — replace with <Image /> */}
             <div
               style={{
-                position: 'absolute',
-                inset: 0,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                opacity: 0.15,
+                position: 'relative',
+                paddingBottom: '133%',
+                overflow: 'hidden',
+                borderRadius: '18px',
+                backgroundColor: '#eee',
               }}
             >
-              <div
+              <img
+                src={col.image}
+                alt={col.name}
                 style={{
-                  width: '40%',
-                  aspectRatio: '2/3',
-                  background: 'currentColor',
-                  borderRadius: '2px',
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                  display: 'block',
                 }}
               />
-            </div>
 
-            {/* Content */}
-            <div
-              style={{
-                position: 'absolute',
-                inset: 0,
-                padding: '24px',
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'flex-end',
-              }}
-            >
-              <p
-                style={{
-                  fontSize: '10px',
-                  letterSpacing: '0.15em',
-                  textTransform: 'uppercase',
-                  color: col.subColor,
-                  marginBottom: '6px',
-                }}
-              >
-                {col.count} pièces
-              </p>
-              <h3
-                style={{
-                  fontFamily: 'var(--font-serif)',
-                  fontSize: 'clamp(20px, 2vw, 26px)',
-                  fontWeight: 400,
-                  color: col.textColor,
-                  marginBottom: '4px',
-                }}
-              >
-                {col.name}
-              </h3>
-              <p
-                style={{
-                  fontFamily: 'var(--font-alt)',
-                  fontSize: '14px',
-                  fontWeight: 300,
-                  color: col.subColor,
-                  letterSpacing: '0.04em',
-                }}
-              >
-                {col.description}
-              </p>
-
-              {/* Arrow appears on hover */}
               <div
-                className="card-arrow"
                 style={{
-                  marginTop: '16px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '6px',
-                  fontSize: '10px',
-                  letterSpacing: '0.15em',
-                  textTransform: 'uppercase',
-                  color: col.textColor,
-                  opacity: 0,
-                  transform: 'translateX(-8px)',
-                  transition: 'opacity 0.3s, transform 0.3s',
+                  position: 'absolute',
+                  inset: 0,
+                  background:
+                    'linear-gradient(to top, rgba(26,22,17,0.78) 0%, rgba(26,22,17,0.08) 60%)',
+                  zIndex: 1,
+                }}
+              />
+
+              <div
+                style={{
+                  position: 'absolute',
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                  padding: '20px',
+                  zIndex: 2,
                 }}
               >
-                Découvrir <ArrowRight size={12} strokeWidth={1.5} />
+                <p
+                  style={{
+                    fontSize: '10px',
+                    letterSpacing: '0.15em',
+                    textTransform: 'uppercase',
+                    color: 'rgba(200,189,168,0.8)',
+                    marginBottom: '6px',
+                  }}
+                >
+                  {col.count} pièces
+                </p>
+
+                <h3
+                  style={{
+                    fontFamily: 'var(--font-serif)',
+                    fontSize: 'clamp(18px,2vw,24px)',
+                    fontWeight: 400,
+                    color: 'var(--cream)',
+                    marginBottom: '4px',
+                  }}
+                >
+                  {col.name}
+                </h3>
+
+                <p
+                  style={{
+                    fontFamily: 'var(--font-alt)',
+                    fontSize: '13px',
+                    fontWeight: 300,
+                    color: 'rgba(200,189,168,0.8)',
+                    margin: 0,
+                  }}
+                >
+                  {col.description}
+                </p>
               </div>
             </div>
-
-            {/* Hover overlay */}
-            <div
-              className="card-overlay"
-              style={{
-                position: 'absolute',
-                inset: 0,
-                background: 'rgba(44,36,22,0)',
-                transition: 'background 0.35s',
-              }}
-            />
           </Link>
         ))}
       </div>
-
-      <style jsx>{`
-        .collection-card:hover .card-overlay {
-          background: rgba(44, 36, 22, 0.12);
-        }
-        .collection-card:hover .card-arrow {
-          opacity: 1;
-          transform: translateX(0);
-        }
-      `}</style>
     </section>
   )
 }

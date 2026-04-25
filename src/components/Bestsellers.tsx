@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { Heart, ArrowRight } from 'lucide-react'
+import { Heart } from 'lucide-react'
 
 const products = [
   {
@@ -12,8 +12,9 @@ const products = [
     price: 89,
     slug: 'chemise-oxford-premium',
     badge: 'Bestseller',
-    badgeStyle: { background: 'var(--gold)', color: 'var(--ink)' },
-    bg: 'var(--cream-dark)',
+    badgeBg: 'var(--gold)',
+    badgeColor: 'var(--ink)',
+    image: '/images/1.jpg',
     colors: ['#2C2416', '#C8BDA8', '#F5F0E8'],
   },
   {
@@ -23,8 +24,10 @@ const products = [
     price: 95,
     slug: 'chemise-lin-blanc',
     badge: null,
-    bg: '#D8CEBC',
-    colors: ['#F5F0E8', '#D8CEBC', '#2C2416'],
+    badgeBg: '',
+    badgeColor: '',
+    image: '/images/7.jpg',
+    colors: ['#F5F0E8', '#2C2416'],
   },
   {
     id: 3,
@@ -33,19 +36,21 @@ const products = [
     price: 110,
     slug: 'rayures-fines-navy',
     badge: 'Nouveau',
-    badgeStyle: { background: 'var(--espresso)', color: 'var(--gold)' },
-    bg: '#B8C4D4',
+    badgeBg: 'var(--espresso)',
+    badgeColor: 'var(--gold)',
+    image: '/images/3.jpg',
     colors: ['#2C3E5C', '#F5F0E8'],
   },
   {
     id: 4,
-    name: 'Chemise Smoking Noir',
+    name: 'Smoking Noir',
     collection: 'Cérémonie',
     price: 135,
     slug: 'chemise-smoking-noir',
     badge: 'Exclusif',
-    badgeStyle: { background: 'var(--gold)', color: 'var(--ink)' },
-    bg: 'var(--espresso)',
+    badgeBg: 'var(--gold)',
+    badgeColor: 'var(--ink)',
+    image: '/images/12.jpg',
     colors: ['#1a1611', '#D4A853'],
   },
   {
@@ -55,8 +60,10 @@ const products = [
     price: 79,
     slug: 'popeline-blanche',
     badge: null,
-    bg: '#EDE7DC',
-    colors: ['#F5F0E8', '#2C2416', '#C8BDA8'],
+    badgeBg: '',
+    badgeColor: '',
+    image: '/images/2.jpg',
+    colors: ['#F5F0E8', '#2C2416'],
   },
   {
     id: 6,
@@ -65,9 +72,10 @@ const products = [
     price: 92,
     slug: 'vichy-terracotta',
     badge: 'Nouveau',
-    badgeStyle: { background: 'var(--espresso)', color: 'var(--gold)' },
-    bg: '#D4906A',
-    colors: ['#D4906A', '#F5F0E8', '#2C2416'],
+    badgeBg: 'var(--espresso)',
+    badgeColor: 'var(--gold)',
+    image: '/images/14.jpg',
+    colors: ['#D4906A', '#F5F0E8'],
   },
   {
     id: 7,
@@ -76,7 +84,9 @@ const products = [
     price: 98,
     slug: 'lin-sable',
     badge: null,
-    bg: '#C8B898',
+    badgeBg: '',
+    badgeColor: '',
+    image: '/images/8.jpg',
     colors: ['#C8B898', '#F5F0E8'],
   },
   {
@@ -86,16 +96,14 @@ const products = [
     price: 118,
     slug: 'flanelle-bleu-nuit',
     badge: null,
-    bg: '#3A4A5C',
+    badgeBg: '',
+    badgeColor: '',
+    image: '/images/4.jpg',
     colors: ['#3A4A5C', '#F5F0E8', '#D4A853'],
   },
 ]
 
-interface ProductCardProps {
-  product: typeof products[0]
-}
-
-function ProductCard({ product }: ProductCardProps) {
+function ProductCard({ product }: { product: typeof products[0] }) {
   const [wished, setWished] = useState(false)
   const [hovered, setHovered] = useState(false)
 
@@ -105,58 +113,67 @@ function ProductCard({ product }: ProductCardProps) {
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
-      {/* Image area */}
-      <Link href={`/produits/${product.slug}`} style={{ display: 'block' }}>
+      <Link
+        href={`/produits/${product.slug}`}
+        style={{
+          display: 'block',
+          textDecoration: 'none',
+          color: 'inherit',
+        }}
+      >
         <div
           style={{
-            background: product.bg,
-            aspectRatio: '3/4',
             position: 'relative',
+            paddingBottom: '133%',
             overflow: 'hidden',
             marginBottom: '12px',
+            borderRadius: '16px',
           }}
         >
-          {/* Shirt silhouette placeholder — replace with <Image /> */}
-          <div
+          <img
+            src={product.image}
+            alt={product.name}
             style={{
               position: 'absolute',
-              top: '50%',
-              left: '50%',
-              transform: 'translate(-50%, -55%)',
-              width: '45%',
-              aspectRatio: '1/1.4',
-              background: 'rgba(255,255,255,0.12)',
-              borderRadius: '1px',
+              top: 0,
+              left: 0,
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              display: 'block',
+              transition: 'transform 0.5s ease',
+              transform: hovered ? 'scale(1.04)' : 'scale(1)',
             }}
           />
 
-          {/* Badge */}
           {product.badge && (
             <div
               style={{
                 position: 'absolute',
                 top: '12px',
                 left: '12px',
-                ...product.badgeStyle,
+                zIndex: 2,
+                background: product.badgeBg,
+                color: product.badgeColor,
                 fontSize: '9px',
                 fontWeight: 500,
                 letterSpacing: '0.12em',
                 textTransform: 'uppercase',
                 padding: '4px 10px',
+                borderRadius: '9999px',
               }}
             >
               {product.badge}
             </div>
           )}
 
-          {/* Quick add button */}
           <div
             style={{
               position: 'absolute',
               bottom: 0,
               left: 0,
               right: 0,
-              background: 'var(--espresso)',
+              background: 'rgba(44,36,22,0.92)',
               color: 'var(--cream)',
               textAlign: 'center',
               fontSize: '10px',
@@ -165,88 +182,78 @@ function ProductCard({ product }: ProductCardProps) {
               textTransform: 'uppercase',
               padding: '14px',
               transform: hovered ? 'translateY(0)' : 'translateY(100%)',
-              transition: 'transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: '8px',
+              transition: 'transform 0.3s ease',
+              zIndex: 2,
             }}
           >
             Choisir ma taille
           </div>
         </div>
+
+        <p
+          style={{
+            fontFamily: 'var(--font-alt)',
+            fontSize: '15px',
+            fontWeight: 400,
+            marginBottom: '3px',
+          }}
+        >
+          {product.name}
+        </p>
+
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            marginBottom: '8px',
+            gap: '12px',
+          }}
+        >
+          <p style={{ fontSize: '11px', color: 'var(--brown)', letterSpacing: '0.08em' }}>
+            {product.collection}
+          </p>
+          <p style={{ fontSize: '13px', fontWeight: 500 }}>{product.price} €</p>
+        </div>
       </Link>
 
-      {/* Wishlist button */}
+      <div style={{ display: 'flex', gap: '5px' }}>
+        {product.colors.map((c) => (
+          <div
+            key={c}
+            style={{
+              width: '12px',
+              height: '12px',
+              borderRadius: '50%',
+              background: c,
+              border: '0.5px solid var(--tan)',
+            }}
+          />
+        ))}
+      </div>
+
       <button
         onClick={() => setWished(!wished)}
         style={{
           position: 'absolute',
           top: '12px',
           right: '12px',
-          background: 'var(--cream)',
+          background: 'rgba(245,240,232,0.9)',
           border: 'none',
           width: '32px',
           height: '32px',
+          borderRadius: '9999px',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
           cursor: 'pointer',
-          color: wished ? '#D4A853' : 'var(--brown)',
-          transition: 'color 0.2s, transform 0.2s',
-          transform: hovered ? 'scale(1)' : 'scale(0.85)',
-          opacity: hovered || wished ? 1 : 0,
+          color: wished ? 'var(--gold)' : 'var(--brown)',
+          zIndex: 3,
         }}
-        aria-label="Ajouter aux favoris"
+        aria-label="Favoris"
       >
-        <Heart
-          size={14}
-          strokeWidth={1.5}
-          fill={wished ? '#D4A853' : 'none'}
-        />
+        <Heart size={14} strokeWidth={1.5} fill={wished ? 'var(--gold)' : 'none'} />
       </button>
-
-      {/* Product info */}
-      <div>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '2px' }}>
-          <Link
-            href={`/produits/${product.slug}`}
-            style={{
-              fontFamily: 'var(--font-alt)',
-              fontSize: '15px',
-              fontWeight: 400,
-              color: 'var(--ink)',
-              letterSpacing: '0.02em',
-            }}
-          >
-            {product.name}
-          </Link>
-        </div>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <p style={{ fontSize: '11px', color: 'var(--brown)', letterSpacing: '0.08em' }}>
-            {product.collection}
-          </p>
-          <p style={{ fontSize: '13px', fontWeight: 500, letterSpacing: '0.06em' }}>
-            {product.price} €
-          </p>
-        </div>
-
-        {/* Color dots */}
-        <div style={{ display: 'flex', gap: '5px', marginTop: '8px' }}>
-          {product.colors.map((c) => (
-            <div
-              key={c}
-              style={{
-                width: '12px',
-                height: '12px',
-                borderRadius: '50%',
-                background: c,
-                border: '0.5px solid var(--tan)',
-              }}
-            />
-          ))}
-        </div>
-      </div>
     </div>
   )
 }
@@ -255,36 +262,45 @@ export default function Bestsellers() {
   return (
     <section
       id="bestsellers"
-      style={{
-        padding: '0 clamp(24px, 5vw, 64px) clamp(48px, 6vw, 80px)',
-      }}
+      style={{ padding: '0 clamp(24px,5vw,64px) clamp(48px,6vw,80px)' }}
     >
-      {/* Divider */}
       <div
         style={{
           height: '0.5px',
           background: 'var(--tan)',
-          marginBottom: 'clamp(48px, 6vw, 80px)',
+          marginBottom: 'clamp(48px,6vw,80px)',
         }}
       />
 
-      {/* Header */}
       <div
         style={{
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'baseline',
+          gap: '16px',
           marginBottom: '40px',
+          flexWrap: 'wrap',
         }}
       >
         <div>
-          <p className="eyebrow" style={{ marginBottom: '10px' }}>
+          <p
+            style={{
+              fontFamily: 'var(--font-sans)',
+              fontSize: '10px',
+              fontWeight: 500,
+              letterSpacing: '0.22em',
+              textTransform: 'uppercase',
+              color: 'var(--brown-light)',
+              marginBottom: '10px',
+            }}
+          >
             Meilleures Ventes
           </p>
+
           <h2
             style={{
               fontFamily: 'var(--font-serif)',
-              fontSize: 'clamp(28px, 3vw, 40px)',
+              fontSize: 'clamp(28px,3vw,40px)',
               fontWeight: 400,
               lineHeight: 1.2,
             }}
@@ -292,12 +308,10 @@ export default function Bestsellers() {
             Les incontournables <em style={{ fontStyle: 'italic' }}>de la saison</em>
           </h2>
         </div>
+
         <Link
-          href="/produits"
+          href="/collections/classique"
           style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '6px',
             fontSize: '10px',
             fontWeight: 500,
             letterSpacing: '0.15em',
@@ -305,18 +319,17 @@ export default function Bestsellers() {
             color: 'var(--brown)',
             borderBottom: '0.5px solid var(--brown)',
             paddingBottom: '2px',
+            textDecoration: 'none',
           }}
         >
-          Tout voir
-          <ArrowRight size={12} strokeWidth={1.5} />
+          Tout voir →
         </Link>
       </div>
 
-      {/* Products grid */}
       <div
         style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
           gap: '24px 16px',
         }}
       >
